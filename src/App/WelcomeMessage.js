@@ -1,7 +1,7 @@
 import React from 'react';
 
-function Welcome(props) {
+function WelcomeMessage(props) {
 	return <h1>Welcome to CryptoDash</h1>;
 }
 
-export default Welcome;
+export default WelcomeMessage;
