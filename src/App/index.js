@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 
+import AppProvider from './AppProvider';
+
 import WelcomeMessage from './WelcomeMessage';
 import AppLayout from './AppLayout';
 import AppBar from './AppBar';
@@ -10,8 +12,10 @@ class App extends Component {
 		return (
 			<div>
 				<AppLayout>
-					<AppBar />
-					<WelcomeMessage />
+					<AppProvider>
+						<AppBar />
+						<WelcomeMessage />
+					</AppProvider>
 				</AppLayout>
 			</div>
 		);
