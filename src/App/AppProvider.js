@@ -5,9 +5,37 @@ export const AppContext = React.createContext();
 class AppProvider extends React.Component {
 	setPage = page => this.setState({ page });
 
+	savedSettings = () => {
+		let cryptoData = JSON.parse(
+			localStorage.getItem('cryptoDash')
+		);
+		if (!cryptoData) {
+			return {
+				page: 'settings',
+				firstVisit: true
+			};
+		}
+		return {};
+	};
+
+	confirmFavorites = () => {
+		this.setState({
+			firstVisit: false,
+			page: 'dashboard'
+		});
+		localStorage.setItem(
+			'cryptoDash',
+			JSON.stringify({
+				test: 'hello'
+			})
+		);
+	};
+
 	state = {
 		page: 'dashboard',
-		setPage: this.setPage
+		...this.savedSettings(),
+		setPage: this.setPage,
+		confirmFavorites: this.confirmFavorites
 	};
 
 	render() {
