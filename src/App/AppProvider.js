@@ -7,9 +7,7 @@ class AppProvider extends React.Component {
 	setPage = page => this.setState({ page });
 
 	savedSettings = () => {
-		let cryptoData = JSON.parse(
-			localStorage.getItem('cryptoDash')
-		);
+		let cryptoData = JSON.parse(localStorage.getItem('cryptoDash'));
 		if (!cryptoData) {
 			return {
 				page: 'settings',

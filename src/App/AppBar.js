@@ -15,11 +15,7 @@ const Bar = styled.div`
 
 const ControlButtonEl = styled.div`
 	cursor: pointer;
-	${props =>
-		props.active &&
-		css`
-			text-shadow: 0px 0px 20px #30ff03;
-		`};
+	${props => props.active && css`text-shadow: 0px 0px 20px #30ff03;`};
 `;
 
 const toProperCase = lower => {
