@@ -8,6 +8,9 @@ import CoinTile from './CoinTile';
 export const CoinGridStyles = styled.div`
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
+	@media (max-width: 1000px) {
+		grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	}
 	grid-gap: 15px;
 	margin: 40px 0px;
 `;
