@@ -58,7 +58,7 @@ class AppProvider extends React.Component {
 
 	state = {
 		page: 'dashboard',
-		favorites: [ 'BTC', 'ETH', 'XMR', 'DOGE', 'DMD' ],
+		favorites: [ 'BTC', 'DMD', '808', '888', 'APEX' ],
 		...this.savedSettings(),
 		setPage: this.setPage,
 		addCoin: this.addCoin,
