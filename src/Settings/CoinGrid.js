@@ -9,20 +9,30 @@ export const CoinGridStyles = styled.div`
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
 	grid-gap: 15px;
-	margin-top: 40px;
+	margin: 40px 0px;
 `;
 
-const displayCoins = coinList => {
-	return Object.keys(coinList).slice(0, 100);
+const displayCoins = (coinList, topSection) => {
+	return Object.keys(coinList).slice(
+		0,
+		topSection ? 5 : 100
+	);
 };
 
-const CoinGrid = () => {
+const CoinGrid = ({ topSection }) => {
 	return (
 		<AppContext.Consumer>
 			{({ coinList }) => (
 				<CoinGridStyles>
-					{displayCoins(coinList).map((coinKey, idx) => (
-						<CoinTile key={idx} coinKey={coinKey} />
+					{displayCoins(
+						coinList,
+						topSection
+					).map((coinKey, idx) => (
+						<CoinTile
+							key={idx}
+							topSection={topSection}
+							coinKey={coinKey}
+						/>
 					))}
 				</CoinGridStyles>
 			)}
