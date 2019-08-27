@@ -3,8 +3,6 @@ import cc from 'cryptocompare';
 
 export const AppContext = React.createContext();
 
-const MAX_FAVORITES = 5;
-
 class AppProvider extends React.Component {
 	setPage = page => this.setState({ page });
 
@@ -13,30 +11,33 @@ class AppProvider extends React.Component {
 		if (!cryptoData) {
 			return {
 				page: 'settings',
-				firstVisit: true
+				firstVisit: true,
+				maxFavorites: 5
 			};
 		} else {
-			let { favorites } = cryptoData;
-			return { favorites };
+			let { favorites, maxFavorites } = cryptoData;
+			return { favorites, maxFavorites };
 		}
 	};
 
 	confirmFavorites = () => {
 		this.setState({
 			firstVisit: false,
-			page: 'dashboard'
+			page: 'dashboard',
+			maxFavorites: this.state.maxFavorites
 		});
 		localStorage.setItem(
 			'cryptoDash',
 			JSON.stringify({
-				favorites: this.state.favorites
+				favorites: this.state.favorites,
+				maxFavorites: this.state.maxFavorites
 			})
 		);
 	};
 
 	addCoin = key => {
 		let favorites = [ ...this.state.favorites ];
-		if (favorites.length < MAX_FAVORITES) {
+		if (favorites.length < this.state.maxFavorites) {
 			favorites.push(key);
 			this.setState({ favorites });
 		}
@@ -56,6 +57,28 @@ class AppProvider extends React.Component {
 		return favorites.includes(key);
 	};
 
+	setFilteredCoins = filteredCoins => {
+		this.setState({ filteredCoins });
+	};
+
+	increaseMaxFavorites = () => {
+		console.log();
+		this.setState(prevState => ({
+			maxFavorites: prevState.maxFavorites + 1
+		}));
+	};
+
+	decreaseMaxFavorites = () => {
+		this.setState(prevState => ({
+			maxFavorites: prevState.maxFavorites - 1
+		}));
+	};
+
+	handleChange = event => {
+		console.log(this.state.maxFavorites);
+		// this.setState({ maxFavorites: event.target.value });
+	};
+
 	state = {
 		page: 'dashboard',
 		favorites: [ 'BTC', 'DMD', '808', '888', 'APEX' ],
@@ -64,8 +87,14 @@ class AppProvider extends React.Component {
 		addCoin: this.addCoin,
 		removeCoin: this.removeCoin,
 		isInFavorites: this.isInFavorites,
-		confirmFavorites: this.confirmFavorites
+		confirmFavorites: this.confirmFavorites,
+		setFilteredCoins: this.setFilteredCoins,
+		increaseMaxFavorites: this.increaseMaxFavorites,
+		decreaseMaxFavorites: this.decreaseMaxFavorites,
+		handleChange: this.handleChange
 	};
+
+	MAX_FAVORITES = this.state.maxFavorites;
 
 	fetchCoins = async () => {
 		let coinList = (await cc.coinList()).Data;

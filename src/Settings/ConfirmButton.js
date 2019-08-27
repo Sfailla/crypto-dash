@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { AppContext } from '../App/AppProvider';
 
 import { fontSize1, greenBoxShadow, color3 } from '../Shared/Styles';
+import MaxCoinInput from './MaxCoinInput';
 
 const ConfirmButtonStyle = styled.div`
 	color: ${color3};
@@ -18,6 +19,8 @@ const ConfirmButtonStyle = styled.div`
 
 const CenterDiv = styled.div`
 	display: grid;
+	grid-template-columns: auto auto;
+	grid-column-gap: 20px;
 	justify-content: center;
 `;
 
@@ -29,6 +32,7 @@ const ConfirmButton = () => {
 					<ConfirmButtonStyle onClick={confirmFavorites}>
 						Confirm Favorites
 					</ConfirmButtonStyle>
+					<MaxCoinInput />
 				</CenterDiv>
 			)}
 		</AppContext.Consumer>

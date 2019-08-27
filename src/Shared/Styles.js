@@ -21,7 +21,8 @@ export const fontColorWhite = 'color: white';
 export const subtleBoxShadow = `box-shadow: 0px 0px 5px 1px ${lightTheme
 	? '#A9B6FF'
 	: '#121D5B'}`;
-export const greenBoxShadow = 'box-shadow: 0px 0px 4px 2px #5FFF17';
+export const greenBoxShadow =
+	'box-shadow: inset 0px 0px 0px 1px #5FFF17';
 export const redBoxShadow = 'box-shadow: 0px 0px 2px 2px #E41111';
 
 export const fontSizeBig = 'font-size: 2em';
