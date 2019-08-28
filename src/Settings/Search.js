@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import fuzzy from 'fuzzy';
 
 import { AppContext } from '../App/AppProvider';
-
+import { debounce, includes } from '../Shared/UtilityFunctions';
 import { fontSize2 } from '../Shared/Styles';
 
 const SearchGrid = styled.div`
@@ -25,35 +26,37 @@ const SearchInput = styled.input`
 	border-bottom: 2px solid white;
 `;
 
-const debounce = (inner, ms) => {
-	let timer = null;
-	let resolves = [];
-
-	return (...args) => {
-		clearTimeout(timer);
-		timer = setTimeout(() => {
-			let result = inner(...args);
-			resolves.map(res => res(result));
-			resolves = [];
-		}, ms);
-
-		return new Promise(res => resolves.push(res));
-	};
-};
-
 const handleFilter = debounce(
 	(searchVal, coinList, setFilteredCoins) => {
-		console.log(searchVal);
+		// get all coin symbols
+		let coinSymbols = Object.keys(coinList);
+		// get all the coin names.  map symbol to name
+		let coinNames = coinSymbols.map(
+			symbol => coinList[symbol].CoinName
+		);
+		let allStringsToSearch = coinSymbols.concat(coinNames);
+		let fuzzyResults = fuzzy
+			.filter(searchVal, allStringsToSearch, {})
+			.map(result => result.string);
+
+		let filteredCoins = Object.fromEntries(
+			Object.entries(coinList).filter(([ symKey, coinVal ]) => {
+				let coinName = coinVal.CoinName;
+				return (
+					includes(fuzzyResults, symKey) ||
+					includes(fuzzyResults, coinName)
+				);
+			})
+		);
+		console.log(filteredCoins);
+		setFilteredCoins(filteredCoins);
 	},
 	500
 );
 
 const filterCoins = (event, setFilteredCoins, coinList) => {
 	let searchVal = event.target.value;
-
 	handleFilter(searchVal, coinList, setFilteredCoins);
-	// console.log(Object.entries(coinList));
-	// if (coinList.contains)
 };
 
 const Search = () => {

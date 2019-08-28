@@ -75,7 +75,7 @@ class AppProvider extends React.Component {
 	};
 
 	handleChange = event => {
-		console.log(this.state.maxFavorites);
+		console.log(event.target.value);
 		// this.setState({ maxFavorites: event.target.value });
 	};
 
