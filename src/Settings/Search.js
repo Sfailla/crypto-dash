@@ -34,11 +34,13 @@ const handleFilter = debounce(
 		let coinNames = coinSymbols.map(
 			symbol => coinList[symbol].CoinName
 		);
+		// combine symbols and coinNames in same array
 		let allStringsToSearch = coinSymbols.concat(coinNames);
+		// search and filter array according to searchTerm
 		let fuzzyResults = fuzzy
 			.filter(searchVal, allStringsToSearch, {})
 			.map(result => result.string);
-
+		// filter search results and transform array back to obj
 		let filteredCoins = Object.fromEntries(
 			Object.entries(coinList).filter(([ symKey, coinVal ]) => {
 				let coinName = coinVal.CoinName;
@@ -48,7 +50,7 @@ const handleFilter = debounce(
 				);
 			})
 		);
-		console.log(filteredCoins);
+		// set filtered coins depending on search results
 		setFilteredCoins(filteredCoins);
 	},
 	500
