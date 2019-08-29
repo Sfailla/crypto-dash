@@ -4,9 +4,12 @@ import { AppContext } from '../App/AppProvider';
 const Content = ({ children }) => {
 	return (
 		<AppContext.Consumer>
-			{({ coinList }) => {
+			{({ coinList, prices, firstVisit }) => {
 				if (!coinList) {
 					return <div>Loading Coins...</div>;
+				}
+				if (!firstVisit && !prices) {
+					return <div>Loading Prices...</div>;
 				}
 				return <div>{children}</div>;
 			}}
