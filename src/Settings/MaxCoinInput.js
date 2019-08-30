@@ -74,8 +74,7 @@ const MaxCoinInput = () => {
 			{({
 				maxFavorites,
 				increaseMaxFavorites,
-				decreaseMaxFavorites,
-				handleChange
+				decreaseMaxFavorites
 			}) => (
 				<CoinInputWrapperStyle>
 					<CoinInputBtnStyle
@@ -88,7 +87,6 @@ const MaxCoinInput = () => {
 						min={5}
 						max={10}
 						value={maxFavorites}
-						onChange={e => handleChange(e)}
 					/>
 					<CoinInputBtnStyle
 						onClick={() => increaseMaxFavorites()}

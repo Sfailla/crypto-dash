@@ -3,11 +3,15 @@ import styled, { css } from 'styled-components';
 
 import { SelectableTile } from '../Shared/Tile';
 import { CoinHeaderGridStyle } from '../Settings/CoinHeaderGrid';
-import { fontSize3, fontSizeBig } from '../Shared/Styles';
+import {
+	fontSize3,
+	fontSizeBig,
+	greenBoxShadow
+} from '../Shared/Styles';
 import { numberFormatter } from '../Shared/UtilityFunctions';
 import ChangePCT from './ChangePCT';
 
-const PriceTileStyle = styled(SelectableTile)`
+export const PriceTileStyle = styled(SelectableTile)`
   ${props =>
 		props.compact &&
 		css`
@@ -17,15 +21,29 @@ const PriceTileStyle = styled(SelectableTile)`
 			grid-gap: 5px;
 			justify-items: right;
 		`}
+	${props =>
+		props.currentFavorite &&
+		css`
+			${greenBoxShadow};
+			pointer-events: none;
+		`}
 `;
 
 const JustifyLeft = styled.div`justify-self: left;`;
 
 const TickerPrice = styled.div`${fontSizeBig};`;
 
-const PriceTile = ({ symbol, data }) => {
+const PriceTile = ({
+	symbol,
+	data,
+	currentFavorite,
+	setCurrentFavorite
+}) => {
 	return (
-		<PriceTileStyle>
+		<PriceTileStyle
+			onClick={setCurrentFavorite}
+			currentFavorite={currentFavorite}
+		>
 			<CoinHeaderGridStyle>
 				<div>{symbol}</div>
 				<ChangePCT data={data} />
@@ -37,9 +55,18 @@ const PriceTile = ({ symbol, data }) => {
 	);
 };
 
-export const PriceTileCompact = ({ symbol, data }) => {
+export const PriceTileCompact = ({
+	symbol,
+	data,
+	currentFavorite,
+	setCurrentFavorite
+}) => {
 	return (
-		<PriceTileStyle compact>
+		<PriceTileStyle
+			compact
+			onClick={setCurrentFavorite}
+			currentFavorite={currentFavorite}
+		>
 			<JustifyLeft>{symbol}</JustifyLeft>
 			<ChangePCT data={data} />
 			<div>${numberFormatter(data.PRICE).toFixed(4)}</div>

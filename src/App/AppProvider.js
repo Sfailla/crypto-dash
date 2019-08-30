@@ -15,17 +15,20 @@ class AppProvider extends React.Component {
 				maxFavorites: 5
 			};
 		} else {
-			let { favorites, maxFavorites } = cryptoData;
-			return { favorites, maxFavorites };
+			let { favorites, maxFavorites, currentFavorite } = cryptoData;
+			return { favorites, maxFavorites, currentFavorite };
 		}
 	};
 
 	confirmFavorites = () => {
+		let currentFavorite = this.state.favorites[0];
+
 		this.setState(
 			{
 				firstVisit: false,
 				page: 'dashboard',
-				maxFavorites: this.state.maxFavorites
+				maxFavorites: this.state.maxFavorites,
+				currentFavorite
 			},
 			() => {
 				this.fetchPrices();
@@ -35,7 +38,20 @@ class AppProvider extends React.Component {
 			'cryptoDash',
 			JSON.stringify({
 				favorites: this.state.favorites,
-				maxFavorites: this.state.maxFavorites
+				maxFavorites: this.state.maxFavorites,
+				currentFavorite
+			})
+		);
+	};
+
+	setCurrentFavorite = symbol => {
+		this.setState({ currentFavorite: symbol });
+
+		localStorage.setItem(
+			'cryptoDash',
+			JSON.stringify({
+				...JSON.parse(localStorage.getItem('cryptoDash')),
+				currentFavorite: symbol
 			})
 		);
 	};
@@ -102,11 +118,6 @@ class AppProvider extends React.Component {
 		return returnData;
 	};
 
-	handleChange = event => {
-		console.log(event.target.value);
-		// this.setState({ maxFavorites: event.target.value });
-	};
-
 	state = {
 		page: 'dashboard',
 		favorites: [ 'BTC', 'DMD', '808', '888', 'APEX' ],
@@ -115,11 +126,11 @@ class AppProvider extends React.Component {
 		addCoin: this.addCoin,
 		removeCoin: this.removeCoin,
 		isInFavorites: this.isInFavorites,
-		confirmFavorites: this.confirmFavorites,
 		setFilteredCoins: this.setFilteredCoins,
+		confirmFavorites: this.confirmFavorites,
+		setCurrentFavorite: this.setCurrentFavorite,
 		increaseMaxFavorites: this.increaseMaxFavorites,
-		decreaseMaxFavorites: this.decreaseMaxFavorites,
-		handleChange: this.handleChange
+		decreaseMaxFavorites: this.decreaseMaxFavorites
 	};
 
 	MAX_FAVORITES = this.state.maxFavorites;
