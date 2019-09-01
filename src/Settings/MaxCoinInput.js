@@ -87,6 +87,7 @@ const MaxCoinInput = () => {
 						min={5}
 						max={10}
 						value={maxFavorites}
+						onChange={e => console.log(e.target.value)}
 					/>
 					<CoinInputBtnStyle
 						onClick={() => increaseMaxFavorites()}

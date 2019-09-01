@@ -18,7 +18,7 @@ const CoinImage = ({ coin, spotlight }) => {
 	return (
 		<CoinImageStyle
 			spotlight={spotlight}
-			alt={coin.CoinSymbol}
+			alt={coin.Symbol}
 			src={`http://cryptocompare.com/${coin.ImageUrl || ''}`}
 		/>
 	);
