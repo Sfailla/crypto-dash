@@ -1,7 +1,7 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
-import { AppContext } from './AppProvider';
+import ControlButton from './ControlButton';
 
 const Logo = styled.div`font-size: 1.5em;`;
 
@@ -12,30 +12,6 @@ const Bar = styled.div`
 	justify-items: center;
 	margin-bottom: 40px;
 `;
-
-const ControlButtonEl = styled.div`
-	cursor: pointer;
-	${props => props.active && css`color: green;`};
-`;
-
-const toProperCase = lower => {
-	return lower[0].toUpperCase() + lower.slice(1);
-};
-
-const ControlButton = ({ name }) => {
-	return (
-		<AppContext.Consumer>
-			{({ page, setPage }) => (
-				<ControlButtonEl
-					active={page === name}
-					onClick={() => setPage(name)}
-				>
-					{toProperCase(name)}
-				</ControlButtonEl>
-			)}
-		</AppContext.Consumer>
-	);
-};
 
 const AppBar = () => {
 	return (
