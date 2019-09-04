@@ -1,23 +1,23 @@
-const HightchartsConfig = () => ({
+const HightchartsConfig = historical => ({
 	title: {
 		text: 'Crypto Dash Currency Price Chart: 2019'
 	},
-
 	subtitle: {
 		text: 'Source: http://cryptodash.com'
 	},
-
 	yAxis: {
 		title: {
 			text: 'Price'
 		}
+	},
+	xAxis: {
+		type: 'datetime'
 	},
 	legend: {
 		layout: 'vertical',
 		align: 'right',
 		verticalAlign: 'middle'
 	},
-
 	plotOptions: {
 		series: {
 			label: {
@@ -27,21 +27,7 @@ const HightchartsConfig = () => ({
 		}
 	},
 
-	series: [
-		{
-			name: 'bitcoin increase/decrease',
-			data: [
-				43934,
-				52503,
-				57177,
-				69658,
-				97031,
-				119931,
-				137133,
-				154175
-			]
-		}
-	],
+	series: historical,
 
 	responsive: {
 		rules: [

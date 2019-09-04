@@ -21,7 +21,10 @@ export const debounce = (inner, ms) => {
 export const includes = (array, element) => {
 	return array.indexOf(element) !== -1;
 };
-
+// UPPERCASES FIRST LETTER HELPER FUNCTION
+export const toProperCase = lower => {
+	return lower[0].toUpperCase() + lower.slice(1);
+};
 // NUMBER FORMATTER HELPER FUNCTION
 export const numberFormatter = number => {
 	return +(number + '').slice(0, 7);

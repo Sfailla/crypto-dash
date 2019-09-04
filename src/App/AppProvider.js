@@ -1,5 +1,10 @@
 import React from 'react';
-import cc from 'cryptocompare';
+import moment from 'moment';
+
+const cc = require('cryptocompare');
+cc.setApiKey(
+	'3cbc74b06166bb8f7c93169a3fc6ff3f060f6e93c11bb793fffa3e6d923d2964'
+);
 
 export const AppContext = React.createContext();
 
@@ -28,10 +33,13 @@ class AppProvider extends React.Component {
 				firstVisit: false,
 				page: 'dashboard',
 				maxFavorites: this.state.maxFavorites,
-				currentFavorite
+				currentFavorite,
+				prices: null,
+				historical: null
 			},
 			() => {
 				this.fetchPrices();
+				this.fetchHistorical();
 			}
 		);
 		localStorage.setItem(
@@ -45,7 +53,10 @@ class AppProvider extends React.Component {
 	};
 
 	setCurrentFavorite = symbol => {
-		this.setState({ currentFavorite: symbol });
+		this.setState(
+			{ currentFavorite: symbol, historical: null },
+			this.fetchHistorical
+		);
 
 		localStorage.setItem(
 			'cryptoDash',
@@ -118,12 +129,44 @@ class AppProvider extends React.Component {
 		return returnData;
 	};
 
+	fetchHistorical = async () => {
+		if (this.state.firstVisit) return;
+		let results = await this.historical();
+		let historical = [
+			{
+				name: this.state.currentFavorite,
+				data: results.map((ticker, idx) => [
+					moment()
+						.subtract({ months: this.TIME_UNITS - idx })
+						.valueOf(),
+					ticker.USD
+				])
+			}
+		];
+		this.setState({ historical });
+	};
+
+	historical = () => {
+		let promises = [];
+		for (let units = this.TIME_UNITS; units > 0; units--) {
+			promises.push(
+				cc.priceHistorical(
+					this.state.currentFavorite,
+					[ 'USD' ],
+					moment().subtract({ months: units }).toDate()
+				)
+			);
+		}
+		return Promise.all(promises);
+	};
+
 	state = {
 		page: 'dashboard',
 		favorites: [ 'BTC', 'DMD', '808', '888', 'APEX' ],
 		...this.savedSettings(),
 		setPage: this.setPage,
 		addCoin: this.addCoin,
+		timeUnits: 10,
 		removeCoin: this.removeCoin,
 		isInFavorites: this.isInFavorites,
 		setFilteredCoins: this.setFilteredCoins,
@@ -134,6 +177,7 @@ class AppProvider extends React.Component {
 	};
 
 	MAX_FAVORITES = this.state.maxFavorites;
+	TIME_UNITS = this.state.timeUnits;
 
 	fetchCoins = async () => {
 		let coinList = (await cc.coinList()).Data;
@@ -143,6 +187,7 @@ class AppProvider extends React.Component {
 	componentDidMount = () => {
 		this.fetchCoins();
 		this.fetchPrices();
+		this.fetchHistorical();
 	};
 
 	render() {
