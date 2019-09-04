@@ -73,6 +73,7 @@ const MaxCoinInput = () => {
 		<AppContext.Consumer>
 			{({
 				maxFavorites,
+				changeCoinAmount,
 				increaseMaxFavorites,
 				decreaseMaxFavorites
 			}) => (
@@ -87,7 +88,7 @@ const MaxCoinInput = () => {
 						min={5}
 						max={10}
 						value={maxFavorites}
-						onChange={e => console.log(e.target.value)}
+						onChange={event => changeCoinAmount(event.target.value)}
 					/>
 					<CoinInputBtnStyle
 						onClick={() => increaseMaxFavorites()}

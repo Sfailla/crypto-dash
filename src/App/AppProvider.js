@@ -137,7 +137,9 @@ class AppProvider extends React.Component {
 				name: this.state.currentFavorite,
 				data: results.map((ticker, idx) => [
 					moment()
-						.subtract({ months: this.TIME_UNITS - idx })
+						.subtract({
+							[this.state.timeInterval]: this.TIME_UNITS - idx
+						})
 						.valueOf(),
 					ticker.USD
 				])
@@ -160,6 +162,17 @@ class AppProvider extends React.Component {
 		return Promise.all(promises);
 	};
 
+	changeChartSelect = value => {
+		this.setState(
+			{ timeInterval: value, historical: null },
+			this.fetchHistorical
+		);
+	};
+
+	changeCoinAmount = value => {
+		console.log(value);
+	};
+
 	state = {
 		page: 'dashboard',
 		favorites: [ 'BTC', 'DMD', '808', '888', 'APEX' ],
@@ -168,9 +181,12 @@ class AppProvider extends React.Component {
 		addCoin: this.addCoin,
 		timeUnits: 10,
 		removeCoin: this.removeCoin,
+		timeInterval: 'months',
 		isInFavorites: this.isInFavorites,
 		setFilteredCoins: this.setFilteredCoins,
 		confirmFavorites: this.confirmFavorites,
+		changeCoinAmount: this.changeCoinAmount,
+		changeChartSelect: this.changeChartSelect,
 		setCurrentFavorite: this.setCurrentFavorite,
 		increaseMaxFavorites: this.increaseMaxFavorites,
 		decreaseMaxFavorites: this.decreaseMaxFavorites
