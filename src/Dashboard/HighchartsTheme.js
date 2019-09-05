@@ -1,30 +1,18 @@
-import { mainBackgroundColor } from '../Shared/Styles';
+import { mainBackgroundColor, lightTheme } from '../Shared/Styles';
 
 const theme = {
-	colors: [
-		'#DDDF0D',
-		'#55BF3B',
-		'#DF5353',
-		'#7798BF',
-		'#aaeeee',
-		'#ff0066',
-		'#eeaaee',
-		'#55BF3B',
-		'#DF5353',
-		'#7798BF',
-		'#aaeeee'
-	],
+	colors: [ lightTheme ? 'magenta' : '#DDDF0D' ],
 	chart: {
-		backgroundColor: mainBackgroundColor,
+		backgroundColor: lightTheme ? 'white' : mainBackgroundColor,
 		borderColor: '#000000',
 		borderWidth: 0,
 		className: 'dark-container',
-		plotBackgroundColor: mainBackgroundColor,
+		plotBackgroundColor: lightTheme ? 'white' : mainBackgroundColor,
 		plotBorderWidth: 0
 	},
 	title: {
 		style: {
-			color: '#C0C0C0',
+			color: lightTheme ? 'black' : '#C0C0C0',
 			font: 'bold 16px "Trebuchet MS", Verdana, sans-serif'
 		}
 	},
@@ -39,11 +27,11 @@ const theme = {
 		gridLineWidth: 0,
 		labels: {
 			style: {
-				color: '#A0A0A0'
+				color: lightTheme ? 'black' : '#A0A0A0'
 			}
 		},
-		lineColor: '#A0A0A0',
-		tickColor: '#A0A0A0',
+		lineColor: lightTheme ? 'black' : '#A0A0A0',
+		tickColor: lightTheme ? 'black' : '#A0A0A0',
 		title: {
 			style: {
 				color: '#CCC',
@@ -54,11 +42,11 @@ const theme = {
 		}
 	},
 	yAxis: {
-		gridLineColor: '#333333',
+		gridLineColor: 'green',
 		gridLineWidth: 0,
 		labels: {
 			style: {
-				color: '#A0A0A0'
+				color: lightTheme ? 'black' : '#A0A0A0'
 			}
 		},
 		lineColor: '#A0A0A0',
@@ -67,7 +55,7 @@ const theme = {
 		tickWidth: 1,
 		title: {
 			style: {
-				color: '#CCC',
+				color: lightTheme ? 'black' : '#CCC',
 				fontWeight: 'bold',
 				fontSize: '12px',
 				fontFamily: 'Trebuchet MS, Verdana, sans-serif'
@@ -112,7 +100,7 @@ const theme = {
 		backgroundColor: 'rgba(0, 0, 0, 0.5)',
 		itemStyle: {
 			font: '9pt Trebuchet MS, Verdana, sans-serif',
-			color: '#A0A0A0'
+			color: lightTheme ? 'white' : '#A0A0A0'
 		},
 		itemHoverStyle: {
 			color: '#FFF'

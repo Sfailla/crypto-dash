@@ -3,11 +3,16 @@ import styled from 'styled-components';
 
 import { AppContext } from '../App/AppProvider';
 
-import { fontSize1, greenBoxShadow, color3 } from '../Shared/Styles';
+import {
+	fontSize1,
+	greenBoxShadow,
+	color3,
+	lightTheme
+} from '../Shared/Styles';
 import MaxCoinInput from './MaxCoinInput';
 
 const ConfirmButtonStyle = styled.div`
-	color: ${color3};
+	color: ${lightTheme ? '#061a44' : color3};
 	${fontSize1};
 	padding: 5px;
 	margin: 0px 20px;

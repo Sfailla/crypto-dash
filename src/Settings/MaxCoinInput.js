@@ -2,11 +2,12 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 import { AppContext } from '../App/AppProvider';
+import { lightTheme } from '../Shared/Styles';
 
 const CoinInputWrapperStyle = styled.div`
 	height: 40px;
 	width: 150px;
-	border: 2px solid #ddd;
+	border: 2px solid ${lightTheme ? '#061a44' : '#ddd'};
 	display: inline-flex;
 `;
 
@@ -18,7 +19,7 @@ const CoinInputBtnStyle = styled.button`
 		content: '';
 		width: 1rem;
 		height: 2px;
-		background-color: #42ff3a;
+		background-color: ${lightTheme ? '#061a44' : '#42ff3a'};
 		transform: translate(-50%, -50%);
 	}
 	::after {
@@ -58,13 +59,13 @@ const CoinInputStyle = styled.input`
   font-family: sans-serif;
   max-width: 4rem;
   padding: .5rem;
-  border: solid #ddd;
+  border: ${lightTheme ? 'solid #061a44' : 'solid #ddd'};
   border-width: 0 2px;
   font-size: 2rem;
   height: 100%;
   font-weight: bold;
   text-align: center;
-  color: #42FF3A;
+  color: ${lightTheme ? '#061a44' : '#42FF3A'};
   background: transparent;
 `;
 
@@ -73,22 +74,15 @@ const MaxCoinInput = () => {
 		<AppContext.Consumer>
 			{({
 				maxFavorites,
-				changeCoinAmount,
 				increaseMaxFavorites,
 				decreaseMaxFavorites
 			}) => (
 				<CoinInputWrapperStyle>
-					<CoinInputBtnStyle
-						onClick={() => {
-							decreaseMaxFavorites();
-						}}
-					/>
+					<CoinInputBtnStyle onClick={() => decreaseMaxFavorites()} />
 					<CoinInputStyle
-						type="number"
-						min={5}
-						max={10}
+						type="text"
 						value={maxFavorites}
-						onChange={event => changeCoinAmount(event.target.value)}
+						onChange={e => e.target.value}
 					/>
 					<CoinInputBtnStyle
 						onClick={() => increaseMaxFavorites()}

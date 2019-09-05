@@ -14,10 +14,14 @@ export const CoinGridStyles = styled.div`
 	margin: 40px 0px;
 `;
 
+let limitedResults = list => {
+	return Object.keys(list).slice(0, 100);
+};
+
 const getLowerSectionCoins = (coinList, filteredCoins) => {
 	return (
-		(filteredCoins && Object.keys(filteredCoins)) ||
-		Object.keys(coinList).slice(0, 100)
+		(filteredCoins && limitedResults(filteredCoins)) ||
+		limitedResults(coinList)
 	);
 };
 

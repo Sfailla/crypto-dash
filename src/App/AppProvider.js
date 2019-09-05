@@ -94,13 +94,14 @@ class AppProvider extends React.Component {
 	};
 
 	increaseMaxFavorites = () => {
-		console.log();
+		console.log(this.state.maxFavorites + 1);
 		this.setState(prevState => ({
 			maxFavorites: prevState.maxFavorites + 1
 		}));
 	};
 
 	decreaseMaxFavorites = () => {
+		console.log(this.state.maxFavorites - 1);
 		this.setState(prevState => ({
 			maxFavorites: prevState.maxFavorites - 1
 		}));
@@ -169,10 +170,6 @@ class AppProvider extends React.Component {
 		);
 	};
 
-	changeCoinAmount = value => {
-		console.log(value);
-	};
-
 	state = {
 		page: 'dashboard',
 		favorites: [ 'BTC', 'DMD', '808', '888', 'APEX' ],
@@ -185,7 +182,6 @@ class AppProvider extends React.Component {
 		isInFavorites: this.isInFavorites,
 		setFilteredCoins: this.setFilteredCoins,
 		confirmFavorites: this.confirmFavorites,
-		changeCoinAmount: this.changeCoinAmount,
 		changeChartSelect: this.changeChartSelect,
 		setCurrentFavorite: this.setCurrentFavorite,
 		increaseMaxFavorites: this.increaseMaxFavorites,
